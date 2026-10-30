@@ -123,7 +123,7 @@ public final class FBSimulatorAccessibilityCommands: NSObject, AsyncAccessibilit
     if Self.requiresAccessibilityBootstrap(for: simulator.osVersion.version) {
       try FBSimulatorControlFrameworkLoader.bootstrapAccessibility(
         forSimulatorDevice: simulator.device,
-        timeout: 5,
+        timeout: Self.accessibilityBootstrapTimeout,
         logger: simulator.logger
       )
     }
