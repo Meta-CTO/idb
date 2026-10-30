@@ -54,6 +54,8 @@ public final class FBSimulatorAccessibilityCommands: NSObject, AsyncAccessibilit
 
   private static let coreSimulatorBridgeServiceName = "com.apple.CoreSimulator.bridge"
 
+  private static let accessibilityBootstrapTimeout: TimeInterval = 60
+
   static func requiresAccessibilityBootstrap(for runtimeVersion: OperatingSystemVersion) -> Bool {
     runtimeVersion.majorVersion >= 27
   }
@@ -123,7 +125,7 @@ public final class FBSimulatorAccessibilityCommands: NSObject, AsyncAccessibilit
     if Self.requiresAccessibilityBootstrap(for: simulator.osVersion.version) {
       try FBSimulatorControlFrameworkLoader.bootstrapAccessibility(
         forSimulatorDevice: simulator.device,
-        timeout: 5,
+        timeout: Self.accessibilityBootstrapTimeout,
         logger: simulator.logger
       )
     }
